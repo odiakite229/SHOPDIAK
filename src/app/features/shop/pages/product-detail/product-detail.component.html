@@ -1,0 +1,103 @@
+<ng-container>
+    <ng-container *ngIf="(products$|async).loading; else showData">
+        <app-loading></app-loading>
+    </ng-container>
+    <ng-template #showData>
+        <nb-card accent="info">
+            <nb-card-body>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <div fxFlex = "40%" >
+                        <div fxLayout = "column">
+                            <div fxFlex = 80%>
+                                <ng-container *ngIf="!showImage; else showImageSelected">
+                                    <img 
+                                        [src]="(products$|async).productSeleted.defaultImage.img" 
+                                        style="width: 50%; margin-left: auto; margin-right: auto; display: block;" 
+                                        alt="">
+                                </ng-container>
+                                <ng-template #showImageSelected>
+                                    <img 
+                                        [src]="showImage" 
+                                        style="width: 50%; margin-left: auto; margin-right: auto; display: block;" 
+                                        alt="">
+                                </ng-template>
+                            </div>
+                            <div fxFlex = "20%">
+                                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign = "center">
+                                    <ng-container *ngFor="let img of (products$|async).productSeleted.images">
+                                        <img 
+                                            [src]="img.img"
+                                            (click)="onImageSeleted(img)" 
+                                            fxFlex = "10%"  
+                                            fxFill="100%" 
+                                            class="img-thumbnail rounded" 
+                                            style="width: 80%; border-radius: 25px; border : 4px solid gray; cursor: pointer;" 
+                                            alt="">
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex = "50%">
+                        <h5>{{ (products$|async).productSeleted.name }}</h5>
+                        <p style="font-size: 18px; margin-top: -20px;">
+                            {{ (products$|async).productSeleted.description }}
+                        </p>
+                        <div fxLayout="row" fxLayoutGap="80px">
+                            <div fxFlex="60%">
+                                <p>
+                                    <span *ngIf="!(products$|async).productSeleted.promo; else promoContent" class="product-price">CFA {{ (products$|async).productSeleted.unitPrice }}</span>
+                                    <ng-template #promoContent>
+                                        <span class="product-price">CFA {{ (products$|async).productSeleted.unitPrice|percentCompute:(products$|async).productSeleted.promo.percent }}</span>
+                                        <span>&nbsp;<del>{{ (products$|async).productSeleted.unitPrice }}</del> </span>
+                                    </ng-template>
+                                </p>
+                                <span>
+                                    <span>
+                                        <nb-icon icon="star" status="warning"></nb-icon>
+                                        <nb-icon icon="star" status="warning"></nb-icon>
+                                        <nb-icon icon="star" status="warning"></nb-icon>
+                                        <nb-icon icon="star" status="basic"></nb-icon>
+                                        <nb-icon icon="star" status="basic"></nb-icon>
+                                    </span>
+                                    &nbsp; 27 Avis des utilisateurs
+                                </span><br>
+                                <span>
+                                    <button nbButton fullWidth size="small">Voir plus</button>
+                                </span>
+                            </div>
+                            <div fxFlex="40%">
+                                <div fxLayout="column" fxLayoutGap="5px">
+                                    <button fxFlex nbButton size="small" status="info">
+                                        <nb-icon style="color : #fff" icon="shopping-bag-outline" status="basic"></nb-icon>
+                                        J'ACHETE
+                                    </button>
+                                    <button fxFlex nbButton outline size="small" status="info" (click)="onShopping()">
+                                        <nb-icon style="color: #0095ff;" icon="shopping-cart-outline" status="basic"></nb-icon>
+                                        AJOUTER AU PANIER
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <p style="position: absolute; bottom : 0px; font-weight: bolder;"><span style="color: red; font-size: 20px;">**</span> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim, omnis!</p>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </ng-template>
+</ng-container>
+
+<!-- <h4>Autres produits simulaires</h4>
+<ng-container *ngIf="(products$|async).totalCount != 0">
+    <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="flex-start" style="margin-top: 20px;">
+        <ng-container  *ngFor="let product of (products$|async).data">
+            <app-product 
+                (shopping) = "onShopping($event)"
+                (productDetail) = "onProductDetail($event)"
+                [product] = "product" 
+                fxFlex="0 1 calc(16.66% - 20px)" 
+                [@EnterLeave]="'flyIn'"></app-product>
+        </ng-container>
+    </div>
+</ng-container> -->

@@ -1,0 +1,58 @@
+<div fxLayout="row">
+    <div fxFlexOffset="10%" fxFlex="80%">
+        <h4>Panier ({{ (panier$|async).total_items }} articles)</h4>
+        <table style="width:100%">
+            <tr>
+                <th>Article</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire</th>
+                <th>Sous total</th>
+            </tr>
+            <ng-container *ngFor="let panier of (panier$|async).data">
+                <tr style="background-color: white; height: 80px;">
+                    <td>
+                        <div fxLayout="row">
+                            <img fxFlex="20%" src="assets/image.jpg" width="30px" height="100%"/>
+                            <div fxFlax=80%>
+                                <h5>{{ panier.product.name }}</h5>
+                                <div fxLayout="row">
+                                    <a fxFlex = "30%" >Cote</a>
+                                    <a fxFlexOffset="10%" fxFlex = "30%">Supprimer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div fxLayout="row" fxFlexAlign="center center">
+                            <button (click)="onchange(panier, 'decrement')" fxFlexOffset="10%" fxFlex="20%" nbButton outline status="info">MOINS</button>
+                            <span fxFlexOffset="10%" fxFlex="40%">{{ panier.amount }}</span>
+                            <button (click)="onchange(panier, 'increment')" fxFlex="20%" nbButton outline status="info">PLUS</button>
+                        </div>
+                    </td>
+                    <td>{{ panier.product.unitPrice }}</td>
+                    <td>{{ panier.sous_total }}</td>
+                </tr>
+            </ng-container>
+        </table>
+        <div fxLayout="column" fxLayoutAlign="space-around end">
+            <div fxFlex >
+                Total : {{ (panier$|async).total_price }}
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
+            <div fxFlex="20%" >
+                <button nbButton outline size="medium" status="info">
+                    <!-- <nb-icon style="color : #fff" icon="shopping-cart-outline" status="basic"></nb-icon> -->
+                    Contunier votre course
+                </button>
+            </div>
+            <div fxFlex="20%" >
+                <button nbButton size="medium" status="info">
+                    <!-- <nb-icon style="color : #fff" icon="shopping-cart-outline" status="basic"></nb-icon> -->
+                    Passer la commande
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

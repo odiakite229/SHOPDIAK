@@ -1,0 +1,32 @@
+.product-name{
+    margin: 0 2px 0px 2px;
+}
+
+.product-price{
+    font-weight: bolder; font-size: 18px;
+}
+
+nb-card{
+    border-radius: 20px;
+}
+
+nb-card-footer{
+    background-color: #ddd;
+}
+
+nb-card-body{
+    cursor: pointer;
+}
+
+nb-card-body h5{
+    margin-bottom: -5px;
+    margin-top : -10px;
+    margin-left: -10px;
+}
+
+nb-card:hover {
+    -webkit-box-shadow: 10px 15px 4px -1px rgba(214,220,227,1);
+    -moz-box-shadow: 10px 15px 4px -1px rgba(214,220,227,1);
+    box-shadow: 10px 15px 4px -1px rgba(214,220,227,1);
+}
+

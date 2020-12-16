@@ -1,0 +1,26 @@
+<ng-container>
+    <ng-container *ngIf="(products$|async).loading; else showData">
+        <app-loading></app-loading>
+    </ng-container>
+    <ng-template #showData>
+        <ng-container *ngIf="(products$|async).totalCount != 0">
+            <div fxLayout="column wrap" fxLayoutAlign="flex-start" fixed>
+                <div fxFlex>
+                    <button Flex="100%" nbButton size="small" status="info">
+                        <nb-icon icon="options-2-outline"></nb-icon> &nbsp;
+                            FILTRE
+                    </button>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="flex-start" style="margin-top: 20px;">
+                <ng-container  *ngFor="let product of (products$|async).data">
+                    <app-product 
+                        (shopping) = "onShopping($event)"
+                        (productDetail) = "onProductDetail($event)"
+                        [product] = "product" 
+                        fxFlex="0 1 calc(16.66% - 20px)" ></app-product>
+                </ng-container>
+            </div>
+        </ng-container>
+    </ng-template>
+</ng-container>

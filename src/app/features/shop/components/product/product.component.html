@@ -1,0 +1,31 @@
+<nb-card style="padding-top: -5px ;">
+    <nb-card-body (click)="onProductDetail()">
+        <ng-container *ngIf="product.promo">
+            <nb-badge [text]="'-' + product.promo.percent + '%'" status="warning" position="top right"></nb-badge>
+        </ng-container>
+        <img src="assets/image.jpg" style="width: 100%;" alt="" fxFill="100%">
+        <h5 class="product-name">{{ product.name }}</h5>
+    </nb-card-body>
+    <nb-card-footer fxLayout = "row" fxLayoutAlign="flex-start">
+        <div fxFlex>
+            <span *ngIf="!product.promo; else promoContent" class="product-price">CFA {{ product.unitPrice }}</span>
+            <ng-template #promoContent>
+                <span class="product-price">CFA {{ product.unitPrice|percentCompute:product.promo.percent }}</span>
+                <span>&nbsp;<del>{{product.unitPrice}}</del> </span>
+            </ng-template>
+            <br>
+            <span>
+                <nb-icon icon="star" status="warning"></nb-icon>
+                <nb-icon icon="star" status="warning"></nb-icon>
+                <nb-icon icon="star" status="warning"></nb-icon>
+                <nb-icon icon="star" status="basic"></nb-icon>
+                <nb-icon icon="star" status="basic"></nb-icon>
+            </span>
+        </div>
+        <div fxFlex = "30" fxLayoutAlign="end">
+            <button nbButton size="medium" status="info" (click)="onShopping()">
+                <nb-icon style="color : #fff" icon="shopping-cart-outline" status="basic"></nb-icon>
+            </button>
+        </div>
+    </nb-card-footer>
+</nb-card>

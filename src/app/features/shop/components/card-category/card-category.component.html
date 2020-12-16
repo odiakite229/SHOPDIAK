@@ -1,0 +1,46 @@
+<nb-card>
+    <nb-card-header fxLayout="row">
+        <div fxFlex>
+            <h5 style="font-size : 24px; font-weight : bold;" status="info">
+            {{ category?.name|uppercase }}</h5>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <div fxLayout="column">
+            <div fxFlex>
+                <div fxLayout="column">
+                    <div fxLayout="row wrap" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+                        <ng-container  *ngFor="let product of category.products|filterTable:product_pagine">
+                            <app-product (shopping) = "onShopping($event)" [product] = "product" fxFlex="0 1 calc(20% - 32px)" [@EnterLeave]="'flyIn'"></app-product>
+                        </ng-container>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutGap="5px" fxLayoutAlign="center">
+                    <ng-container *ngIf="pageList.length > 1">
+                        <ng-container *ngFor="let page of pageList">
+                            <button nbButton (click) = "getPageContent(page)" [disabled]="getStatus(page)" style="width: 10px; height: 5px; border-radius: 10px;" status="default">
+                                {{ page }}
+                            </button>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+            <div fxFlex>
+                <div fxLayout="column wrap" fxLayoutAlign="flex-start end">
+                    <div fxFlex>
+                        <span style="display: none;">
+                            <span style="font-size: 25px; font-weight: bold;">
+                                {{ category.totalProduct }}
+                            </span>
+                            <span> produits à decouvrir dans cette categorie</span>
+                        </span>&nbsp;&nbsp;
+                        <button Flex="100%" nbButton size="small" status="warning">
+                            <nb-icon icon="plus-outline"></nb-icon> &nbsp;
+                            VOIR PLUS
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
